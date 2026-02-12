@@ -1,0 +1,179 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Ajitha ❤️</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    text-align: center;
+    color: white;
+    overflow-x: hidden;
+}
+
+header {
+    padding: 40px 20px;
+}
+
+h1 {
+    font-size: 3em;
+}
+
+.love-text {
+    font-size: 1.3em;
+    margin-top: 15px;
+}
+
+.slideshow-container {
+    max-width: 500px;
+    position: relative;
+    margin: 30px auto;
+}
+
+.slide {
+    display: none;
+}
+
+.slide img {
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+}
+
+.fade {
+    animation: fade 2s ease-in-out;
+}
+
+@keyframes fade {
+    from {opacity: .4}
+    to {opacity: 1}
+}
+
+button {
+    padding: 12px 25px;
+    font-size: 16px;
+    border: none;
+    border-radius: 30px;
+    background: white;
+    color: #ff4d6d;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 20px;
+}
+
+button:hover {
+    transform: scale(1.1);
+}
+
+.hidden-message {
+    display: none;
+    font-size: 1.5em;
+    margin: 30px;
+    animation: fadeIn 2s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.heart {
+    position: fixed;
+    bottom: -10px;
+    font-size: 20px;
+    animation: floatUp 6s linear infinite;
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-100vh); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Background Music -->
+<audio autoplay loop>
+  <source src="romantic.mp3" type="audio/mpeg">
+</audio>
+
+<header>
+    <h1>Ajitha ❤️</h1>
+    <div class="love-text">
+        Every moment with you is magical ✨<br>
+        You are my today and all of my tomorrows 💖
+    </div>
+</header>
+
+<div class="slideshow-container">
+
+    <div class="slide fade">
+        <img src="photo1.jpg">
+    </div>
+
+    <div class="slide fade">
+        <img src="photo2.jpg">
+    </div>
+
+    <div class="slide fade">
+        <img src="photo3.jpg">
+    </div>
+
+    <div class="slide fade">
+        <img src="photo4.jpg">
+    </div>
+
+    <div class="slide fade">
+        <img src="photo5.jpg">
+    </div>
+
+</div>
+
+<button onclick="showMessage()">Click My Heart 💌</button>
+
+<div id="message" class="hidden-message">
+    Ajitha, I am the luckiest person to have you ❤️<br><br>
+    Thank you for filling my life with love and happiness 💕<br><br>
+    I Love You Forever 💍💖
+</div>
+
+<script>
+let slideIndex = 0;
+showSlides();
+
+function showSlides() {
+    let slides = document.getElementsByClassName("slide");
+    for (let i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+    }
+    slideIndex++;
+    if (slideIndex > slides.length) {slideIndex = 1}
+    slides[slideIndex-1].style.display = "block";
+    setTimeout(showSlides, 3000);
+}
+
+function showMessage() {
+    document.getElementById("message").style.display = "block";
+}
+
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (Math.random() * 20 + 15) + "px";
+    document.body.appendChild(heart);
+    setTimeout(() => { heart.remove(); }, 6000);
+}
+
+setInterval(createHeart, 500);
+</script>
+
+</body>
+</html>
