@@ -15,21 +15,18 @@ body {
     overflow-x: hidden;
 }
 
-header {
-    padding: 40px 20px;
-}
-
 h1 {
-    font-size: 3em;
+    font-size: 2.8em;
+    margin-top: 40px;
 }
 
 .love-text {
-    font-size: 1.3em;
-    margin-top: 15px;
+    font-size: 1.2em;
+    margin: 15px;
 }
 
 .slideshow-container {
-    max-width: 500px;
+    max-width: 400px;
     position: relative;
     margin: 30px auto;
 }
@@ -44,15 +41,6 @@ h1 {
     box-shadow: 0 8px 25px rgba(0,0,0,0.4);
 }
 
-.fade {
-    animation: fade 2s ease-in-out;
-}
-
-@keyframes fade {
-    from {opacity: .4}
-    to {opacity: 1}
-}
-
 button {
     padding: 12px 25px;
     font-size: 16px;
@@ -61,24 +49,12 @@ button {
     background: white;
     color: #ff4d6d;
     cursor: pointer;
+    margin: 20px;
     transition: 0.3s;
-    margin-top: 20px;
 }
 
 button:hover {
     transform: scale(1.1);
-}
-
-.hidden-message {
-    display: none;
-    font-size: 1.5em;
-    margin: 30px;
-    animation: fadeIn 2s ease-in-out forwards;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
 }
 
 .heart {
@@ -102,55 +78,86 @@ button:hover {
   <source src="romantic.mp3" type="audio/mpeg">
 </audio>
 
-<header>
-    <h1>Ajitha ❤️</h1>
-    <div class="love-text">
-        Every moment with you is magical ✨<br>
-        You are my today and all of my tomorrows 💖
-    </div>
-</header>
+<h1>Ajitha ❤️</h1>
+
+<div class="love-text">
+    Every moment with you is magical ✨ <br>
+    You are my today and all of my tomorrows 💖
+</div>
 
 <div class="slideshow-container">
 
-    <div class="slide fade">
-        <img src="photo1.jpg">
-    </div>
-
-    <div class="slide fade">
-        <img src="photo2.jpg">
-    </div>
-
-    <div class="slide fade">
-        <img src="photo3.jpg">
-    </div>
-
-    <div class="slide fade">
-        <img src="photo4.jpg">
-    </div>
-
-    <div class="slide fade">
-        <img src="photo5.jpg">
-    </div>
+    <div class="slide"><img src="photo1.jpg"></div>
+    <div class="slide"><img src="photo2.jpg"></div>
+    <div class="slide"><img src="photo3.jpg"></div>
+    <div class="slide"><img src="photo4.jpg"></div>
+    <div class="slide"><img src="photo5.jpg"></div>
 
 </div>
 
-<button onclick="showMessage()">Click My Heart 💌</button>
+<button onclick="openProposal()">Click My Heart 💌</button>
 
-<div id="message" class="hidden-message">
-    Ajitha, I am the luckiest person to have you ❤️<br><br>
-    Thank you for filling my life with love and happiness 💕<br><br>
-    I Love You Forever 💍💖
+<!-- Proposal Popup -->
+<div id="proposalBox" style="
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.8);
+justify-content:center;
+align-items:center;
+z-index:999;
+">
+
+  <div style="
+  background:white;
+  padding:30px;
+  border-radius:20px;
+  text-align:center;
+  width:90%;
+  max-width:350px;
+  color:#ff4d6d;
+  position:relative;
+  ">
+
+    <h2>Ajitha 💖</h2>
+    <p style="font-size:18px;">Will you be mine forever? 💍</p>
+
+    <button onclick="sayYes()" style="
+      background:#ff4d6d;
+      color:white;
+      padding:10px 20px;
+      border-radius:20px;
+      border:none;
+      margin:10px;
+    ">YES 💖</button>
+
+    <button id="noBtn" onmouseover="moveNo()" style="
+      background:gray;
+      color:white;
+      padding:10px 20px;
+      border-radius:20px;
+      border:none;
+      margin:10px;
+      position:relative;
+    ">NO 😏</button>
+
+  </div>
 </div>
 
 <script>
 
+/* 🎵 Play Music on First Click */
 document.addEventListener("click", function() {
   const music = document.getElementById("bgMusic");
-  if (music) {
+  if (music && music.paused) {
     music.play();
   }
 });
 
+/* 📸 Slideshow */
 let slideIndex = 0;
 showSlides();
 
@@ -160,16 +167,53 @@ function showSlides() {
     slides[i].style.display = "none";
   }
   slideIndex++;
-  if (slideIndex > slides.length) {
-    slideIndex = 1;
-  }
+  if (slideIndex > slides.length) { slideIndex = 1; }
   slides[slideIndex - 1].style.display = "block";
   setTimeout(showSlides, 3000);
 }
 
-function showMessage() {
-  document.getElementById("message").style.display = "block";
+/* 💍 Open Proposal */
+function openProposal() {
+  document.getElementById("proposalBox").style.display = "flex";
 }
+
+/* 💖 YES Action */
+function sayYes() {
+  document.getElementById("proposalBox").innerHTML = `
+    <div style="
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    text-align:center;
+    color:#ff4d6d;">
+      <h2>YAYYY 💖🎉</h2>
+      <p style="font-size:18px;">
+        You just made me the happiest person alive ❤️<br><br>
+        I Love You Forever Ajitha 💍✨
+      </p>
+    </div>
+  `;
+}
+
+/* 😏 NO Button Runs Away */
+function moveNo() {
+  const noBtn = document.getElementById("noBtn");
+  noBtn.style.position = "absolute";
+  noBtn.style.left = Math.random() * 200 + "px";
+  noBtn.style.top = Math.random() * 200 + "px";
+}
+
+/* ❤️ Floating Hearts */
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (Math.random() * 20 + 15) + "px";
+    document.body.appendChild(heart);
+    setTimeout(() => { heart.remove(); }, 6000);
+}
+setInterval(createHeart, 600);
 
 </script>
 
